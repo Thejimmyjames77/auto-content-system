@@ -1,0 +1,40 @@
+name: Daily Content Automation
+on:
+  schedule:
+    - cron: "0 9 * * *"   # 9 AM UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write  # allow creating releases and uploading assets
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install fonts for Unicode PDFs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-dejavu-core
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run automation
+        env:
+          PAYHIP_API_KEY: ${{ secrets.PAYHIP_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          TUMBLR_CONSUMER_KEY: ${{ secrets.TUMBLR_CONSUMER_KEY }}
+          TUMBLR_CONSUMER_SECRET: ${{ secrets.TUMBLR_CONSUMER_SECRET }}
+          TUMBLR_OAUTH_TOKEN: ${{ secrets.TUMBLR_OAUTH_TOKEN }}
+          TUMBLR_OAUTH_SECRET: ${{ secrets.TUMBLR_OAUTH_SECRET }}
+          TUMBLR_BLOG_NAME: ${{ secrets.TUMBLR_BLOG_NAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # default token provided by GitHub
+        run: python main.py
