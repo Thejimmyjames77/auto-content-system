@@ -1,0 +1,35 @@
+      - name: Preflight checks
+        shell: bash
+        env:
+          PAYHIP_API_KEY: ${{ secrets.PAYHIP_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          TUMBLR_CONSUMER_KEY: ${{ secrets.TUMBLR_CONSUMER_KEY }}
+          TUMBLR_CONSUMER_SECRET: ${{ secrets.TUMBLR_CONSUMER_SECRET }}
+          TUMBLR_OAUTH_TOKEN: ${{ secrets.TUMBLR_OAUTH_TOKEN }}
+          TUMBLR_OAUTH_SECRET: ${{ secrets.TUMBLR_OAUTH_SECRET }}
+          TUMBLR_BLOG_NAME: ${{ secrets.TUMBLR_BLOG_NAME }}
+        run: |
+          set -euo pipefail
+          echo "Checking files..."
+          test -f requirements.txt || { echo "::error::requirements.txt is missing at repo root"; exit 1; }
+          test -f main.py || { echo "::error::main.py is missing at repo root"; exit 1; }
+          # Optional: config.py must exist if you rely on it
+          test -f config.py || { echo "::error::config.py is missing at repo root"; exit 1; }
+
+          echo "Checking secrets..."
+          missing=0
+          for v in PAYHIP_API_KEY REDDIT_CLIENT_ID REDDIT_CLIENT_SECRET REDDIT_USER_AGENT REDDIT_USERNAME REDDIT_PASSWORD TUMBLR_CONSUMER_KEY TUMBLR_CONSUMER_SECRET TUMBLR_OAUTH_TOKEN TUMBLR_OAUTH_SECRET TUMBLR_BLOG_NAME; do
+            if [ -z "${!v:-}" ]; then echo "::error::Missing secret: $v"; missing=1; fi
+          done
+          [ "$missing" -eq 0 ] || exit 1
+
+          echo "Compiling main.py to catch syntax errors..."
+          python - << 'PY'
+import py_compile
+py_compile.compile('main.py', doraise=True)
+print("OK: main.py compiles.")
+PY
