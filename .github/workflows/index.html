@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Productivity | AI-Powered Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        :root { --primary: #0f172a; --secondary: #1e293b; --accent: #38bdf8; --light: #f1f5f9; --success: #10b981; }
+        body { background: linear-gradient(135deg, var(--primary), #1a202c); color: var(--light); min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo i { font-size: 2.5rem; color: var(--accent); }
+        .logo h1 { font-size: 1.8rem; background: linear-gradient(to right, var(--accent), #818cf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 50px 20px; margin: 40px 0; background: rgba(30,41,59,0.6); border-radius: 20px; }
+        .hero h2 { font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(to right, #e0f2fe, #ddd6fe); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 50px 0; }
+        .product-card { background: rgba(30,41,59,0.6); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); }
+        .product-image { height: 200px; background-size: cover; background-position: center; }
+        .product-info { padding: 20px; }
+        .product-info h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .price { font-size: 1.8rem; font-weight: 700; color: var(--accent); margin: 15px 0; }
+        .btn { background: linear-gradient(90deg, var(--accent), #818cf8); color: white; border: none; padding: 15px 30px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; width: 100%; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(56,189,248,0.3); }
+        .checkout-section { background: rgba(30,41,59,0.6); border-radius: 20px; padding: 40px; margin: 50px 0; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-control { width: 100%; padding: 15px; background: rgba(30,41,59,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; }
+        #card-element { background: rgba(30,41,59,0.5); padding: 15px; border-radius: 8px; }
+        .error { color: #ef4444; font-size: 0.9rem; margin-top: 5px; display: none; }
+        footer { text-align: center; padding: 30px 0; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <h1>Cosmic Productivity</h1>
+            </div>
+        </header>
+        
+        <section class="hero">
+            <h2>AI-Powered Productivity Tools</h2>
+            <p>Boost your focus and creativity with NASA-inspired motivation tools</p>
+        </section>
+        
+        <section class="product-showcase">
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Stellar Focus Kit</h3>
+                        <p>Deep work sessions with cosmic imagery and concentration exercises</p>
+                        <div class="price">$19.99</div>
+                        <button class="btn" onclick="initiateCheckout('prod_stellar', 1999)">Buy Now</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1454789548928-9a7310581f42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Galaxy Creativity Pack</h3>
+                        <p>Innovation tools with space-inspired creative challenges</p>
+                        <div class="price">$24.99</div>
+                        <button class="btn" onclick="initiateCheckout('prod_galaxy', 2499)">Buy Now</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="product-info">
+                        <h3>Orbit Wellness Bundle</h3>
+                        
