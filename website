@@ -1,0 +1,349 @@
+// Daily Wellness Tracker - Physical & Spiritual Health
+
+export interface WellnessItem {
+  id: string;
+  title: string;
+  description: string;
+  category: 'physical' | 'spiritual' | 'mental' | 'emotional';
+  difficulty: 'easy' | 'medium' | 'hard';
+  duration: string;
+  benefits: string[];
+}
+
+export interface DailyProgress {
+  date: string;
+  completedItems: string[];
+  streakDays: number;
+  totalPoints: number;
+}
+
+// Daily Wellness Checklist Items
+export const wellnessActivities: WellnessItem[] = [
+  // Physical Health
+  {
+    id: 'ph1',
+    title: 'Morning Stretch',
+    description: '10 minutes of gentle stretching to wake up your body',
+    category: 'physical',
+    difficulty: 'easy',
+    duration: '10 min',
+    benefits: ['Increases flexibility', 'Reduces tension', 'Boosts energy'],
+  },
+  {
+    id: 'ph2',
+    title: 'Hydration',
+    description: 'Drink 8 glasses of water throughout the day',
+    category: 'physical',
+    difficulty: 'easy',
+    duration: 'All day',
+    benefits: ['Improves energy', 'Aids digestion', 'Clears skin'],
+  },
+  {
+    id: 'ph3',
+    title: 'Walk in Nature',
+    description: '30-minute walk outdoors, preferably in a natural setting',
+    category: 'physical',
+    difficulty: 'easy',
+    duration: '30 min',
+    benefits: ['Cardiovascular health', 'Vitamin D', 'Mental clarity'],
+  },
+  {
+    id: 'ph4',
+    title: 'Healthy Meal',
+    description: 'Prepare and eat at least one nutritious, whole-food meal',
+    category: 'physical',
+    difficulty: 'medium',
+    duration: '45 min',
+    benefits: ['Nourishes body', 'Boosts immunity', 'Sustainable energy'],
+  },
+  {
+    id: 'ph5',
+    title: 'Exercise Session',
+    description: '30 minutes of moderate exercise (yoga, running, or strength)',
+    category: 'physical',
+    difficulty: 'medium',
+    duration: '30 min',
+    benefits: ['Builds strength', 'Releases endorphins', 'Improves mood'],
+  },
+  {
+    id: 'ph6',
+    title: 'Quality Sleep',
+    description: 'Get 7-8 hours of restful sleep',
+    category: 'physical',
+    difficulty: 'medium',
+    duration: '7-8 hours',
+    benefits: ['Repairs body', 'Consolidates memory', 'Regulates hormones'],
+  },
+
+  // Spiritual Health
+  {
+    id: 'sp1',
+    title: 'Morning Meditation',
+    description: '15 minutes of mindful meditation or breath work',
+    category: 'spiritual',
+    difficulty: 'easy',
+    duration: '15 min',
+    benefits: ['Calms mind', 'Reduces stress', 'Increases awareness'],
+  },
+  {
+    id: 'sp2',
+    title: 'Gratitude Practice',
+    description: 'Write down 3 things you are grateful for today',
+    category: 'spiritual',
+    difficulty: 'easy',
+    duration: '5 min',
+    benefits: ['Shifts perspective', 'Increases happiness', 'Reduces anxiety'],
+  },
+  {
+    id: 'sp3',
+    title: 'Prayer or Affirmations',
+    description: 'Spend time in prayer or recite positive affirmations',
+    category: 'spiritual',
+    difficulty: 'easy',
+    duration: '10 min',
+    benefits: ['Connects to higher power', 'Builds confidence', 'Sets intentions'],
+  },
+  {
+    id: 'sp4',
+    title: 'Read Spiritual Text',
+    description: 'Read 10-15 pages from an inspiring or spiritual book',
+    category: 'spiritual',
+    difficulty: 'easy',
+    duration: '15 min',
+    benefits: ['Expands wisdom', 'Provides guidance', 'Inspires growth'],
+  },
+  {
+    id: 'sp5',
+    title: 'Acts of Kindness',
+    description: 'Perform one random act of kindness for someone',
+    category: 'spiritual',
+    difficulty: 'medium',
+    duration: '15 min',
+    benefits: ['Spreads love', 'Increases compassion', 'Builds connection'],
+  },
+  {
+    id: 'sp6',
+    title: 'Evening Reflection',
+    description: 'Journal about your day and spiritual insights',
+    category: 'spiritual',
+    difficulty: 'medium',
+    duration: '20 min',
+    benefits: ['Self-awareness', 'Processes emotions', 'Tracks growth'],
+  },
+
+  // Mental Health
+  {
+    id: 'me1',
+    title: 'Digital Detox Hour',
+    description: 'One hour without phone, computer, or screens',
+    category: 'mental',
+    difficulty: 'medium',
+    duration: '60 min',
+    benefits: ['Reduces stress', 'Improves focus', 'Better sleep'],
+  },
+  {
+    id: 'me2',
+    title: 'Learn Something New',
+    description: 'Spend time learning a new skill or subject',
+    category: 'mental',
+    difficulty: 'medium',
+    duration: '30 min',
+    benefits: ['Keeps mind sharp', 'Builds confidence', 'Expands horizons'],
+  },
+  {
+    id: 'me3',
+    title: 'Creative Expression',
+    description: 'Engage in art, music, writing, or creative activity',
+    category: 'mental',
+    difficulty: 'easy',
+    duration: '20 min',
+    benefits: ['Relieves stress', 'Expresses emotions', 'Boosts mood'],
+  },
+
+  // Emotional Health
+  {
+    id: 'em1',
+    title: 'Connect with Loved One',
+    description: 'Have meaningful conversation with friend or family',
+    category: 'emotional',
+    difficulty: 'easy',
+    duration: '30 min',
+    benefits: ['Reduces loneliness', 'Strengthens bonds', 'Provides support'],
+  },
+  {
+    id: 'em2',
+    title: 'Self-Compassion Practice',
+    description: 'Speak kindly to yourself, especially about challenges',
+    category: 'emotional',
+    difficulty: 'medium',
+    duration: '10 min',
+    benefits: ['Builds self-love', 'Reduces criticism', 'Increases resilience'],
+  },
+  {
+    id: 'em3',
+    title: 'Laugh & Play',
+    description: 'Do something fun that makes you laugh or brings joy',
+    category: 'emotional',
+    difficulty: 'easy',
+    duration: '20 min',
+    benefits: ['Releases tension', 'Boosts mood', 'Lightens perspective'],
+  },
+];
+
+// Weekly Wellness Plans
+export interface WellnessPlan {
+  id: string;
+  name: string;
+  description: string;
+  duration: string;
+  goals: string[];
+  dailyTasks: string[];
+  tips: string[];
+}
+
+export const wellnessPlans: WellnessPlan[] = [
+  {
+    id: 'beginner',
+    name: 'Beginner Wellness Journey',
+    description: 'Perfect for those starting their wellness journey',
+    duration: '7 days',
+    goals: [
+      'Establish morning routine',
+      'Build meditation habit',
+      'Improve hydration',
+      'Better sleep schedule',
+    ],
+    dailyTasks: [
+      'Morning stretch (10 min)',
+      'Meditation (5 min)',
+      'Drink 6 glasses of water',
+      'Gratitude practice (5 min)',
+      'Early bedtime (before 11pm)',
+    ],
+    tips: [
+      'Start small - consistency over intensity',
+      'Set phone reminders for each task',
+      'Track progress daily',
+      'Be patient with yourself',
+    ],
+  },
+  {
+    id: 'balanced',
+    name: 'Balanced Life Plan',
+    description: 'Holistic approach to physical and spiritual wellness',
+    duration: '14 days',
+    goals: [
+      'Balance all wellness areas',
+      'Create sustainable habits',
+      'Increase energy levels',
+      'Deepen spiritual practice',
+    ],
+    dailyTasks: [
+      'Morning meditation (15 min)',
+      'Exercise (30 min)',
+      'Healthy meals (3x)',
+      'Gratitude journal',
+      'Evening reflection',
+      'Quality sleep (7-8 hours)',
+    ],
+    tips: [
+      'Prep meals on Sunday for the week',
+      'Schedule wellness time like appointments',
+      'Find an accountability partner',
+      'Celebrate small wins',
+    ],
+  },
+  {
+    id: 'spiritual',
+    name: 'Spiritual Awakening',
+    description: 'Deep dive into spiritual practices and growth',
+    duration: '21 days',
+    goals: [
+      'Deepen meditation practice',
+      'Connect with higher self',
+      'Release limiting beliefs',
+      'Cultivate inner peace',
+    ],
+    dailyTasks: [
+      'Morning meditation (30 min)',
+      'Prayer or affirmations',
+      'Read spiritual texts',
+      'Acts of kindness',
+      'Evening journaling',
+      'Mindful eating',
+    ],
+    tips: [
+      'Create sacred space for practice',
+      'Join spiritual community',
+      'Practice presence throughout day',
+      'Trust the journey',
+    ],
+  },
+  {
+    id: 'transformation',
+    name: '30-Day Transformation',
+    description: 'Complete lifestyle transformation for mind, body, spirit',
+    duration: '30 days',
+    goals: [
+      'Transform daily habits',
+      'Achieve peak wellness',
+      'Build lifelong practices',
+      'Experience profound shifts',
+    ],
+    dailyTasks: [
+      'All physical activities',
+      'All spiritual practices',
+      'Mental wellness activities',
+      'Emotional health practices',
+      'Track all progress',
+    ],
+    tips: [
+      'Commit fully for 30 days',
+      'Document your journey',
+      'Share progress with others',
+      'Prepare for transformation',
+    ],
+  },
+];
+
+// Daily Suggestions
+export function getDailySuggestion(): string {
+  const suggestions = [
+    'Start your day with intention - what do you want to cultivate today?',
+    'Remember: Progress, not perfection. Every small step counts.',
+    'Your body is a temple - treat it with love and respect.',
+    'Take three deep breaths right now. Notice how you feel.',
+    'Gratitude turns what we have into enough.',
+    'You are exactly where you need to be on your journey.',
+    'Self-care is not selfish - it is essential.',
+    'Connect with nature today, even if just for 5 minutes.',
+    'Your spiritual practice is a gift you give yourself.',
+    'Celebrate how far you have come, not just how far you have to go.',
+    'Today is a new opportunity to choose wellness.',
+    'Listen to your body - it knows what it needs.',
+  ];
+
+  const today = new Date().getDate();
+  return suggestions[today % suggestions.length];
+}
+
+// Get items by category
+export function getItemsByCategory(category: WellnessItem['category']): WellnessItem[] {
+  return wellnessActivities.filter(item => item.category === category);
+}
+
+// Calculate points
+export function calculatePoints(completedItems: string[]): number {
+  return completedItems.reduce((total, itemId) => {
+    const item = wellnessActivities.find(w => w.id === itemId);
+    if (!item) return total;
+
+    const points = {
+      easy: 10,
+      medium: 20,
+      hard: 30,
+    };
+
+    return total + points[item.difficulty];
+  }, 0);
+}
